@@ -2,36 +2,61 @@
   box-sizing: border-box;
 }
 
+body {
+  background: linear-gradient(180deg, #2e2440 0%, #42346b 100%);
+  color: #ffffff;
+}
+
 .resume-container {
   width: 80%;
   max-width: 650px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 2px solid #cdcdcd;
+  border-radius: 8px;
 }
 
-/* Для мобильных устройств: */
-@media (max-width: 600px) {
-  .resume-container {
-    width: 95%;
-  }
-}
-
-
-.personal-info, .experience, .education, .skills {
+.personal-info,
+.experience,
+.education,
+.skills {
   margin-bottom: 80px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #666;
+  border-radius: 8px;
   padding: 12px 10px;
 }
 
-input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="date"], textarea {
+input::placeholder,
+textarea::placeholder {
+  color: #ddd;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  font-weight: bold;
+  background: none;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  color: #dddddd;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  transform: scale(1.5);
 }
 
 textarea {
@@ -39,35 +64,57 @@ textarea {
   resize: vertical;
 }
 
-.generate-button  {
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
+.generate-button {
+  background: linear-gradient(to right, #196BCA, #6433E0);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  font-style: normal;
+  text-decoration: none;
+  padding: 14px 30px;
+  border: 0px solid #000;
+  border-radius: 8px;
   cursor: pointer;
-  box-sizing: border-box;
+  transition: transform 0.05s linear;
+}
+
+.generate-button:hover {
+  transform: scale(1.03);
 }
 
 .generate-button__delete {
-  background-color: #CA454D;
+  background: #CA454D;
   margin-bottom: 10px;
 }
 
-.generate-button__delete:hover{
+.generate-button__delete:hover {
   background-color: #F24E5B;
 }
 
-button:hover {
-  background-color: #45a049;
+.generate-button__generate {
+  width: 100%;
+  padding: 20px;
 }
 
 .generate-button-wrapper {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
 }
 
 .generate-button-wrapper button {
   width: 48%;
+}
+
+.error {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #CA454D;
+}
+
+@media (max-width: 600px) {
+  .resume-container {
+    width: 95%;
+    border: none;
+  }
 }
