@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+.resume-container {
+  width: 80%;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Для мобильных устройств: */
+@media (max-width: 600px) {
+  .resume-container {
+    width: 95%;
+  }
+}
+
+
+.personal-info, .experience, .education, .skills {
+  margin-bottom: 80px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 12px 10px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="date"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.generate-button  {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.generate-button__delete {
+  background-color: #CA454D;
+  margin-bottom: 10px;
+}
+
+.generate-button__delete:hover{
+  background-color: #F24E5B;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.generate-button-wrapper {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.generate-button-wrapper button {
+  width: 48%;
+}
