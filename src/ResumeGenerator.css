@@ -12,7 +12,7 @@ body {
   max-width: 650px;
   margin: 50px auto;
   padding: 20px;
-  border: 2px solid #cdcdcd;
+  border: 1px solid #cdcdcd;
   border-radius: 8px;
 }
 
@@ -92,6 +92,8 @@ textarea {
 }
 
 .generate-button__generate {
+  display: block;
+  color: #ffffff !important;
   width: 100%;
   padding: 20px;
 }

@@ -1,4 +1,20 @@
 import React, { useState } from 'react';
+import { Font, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf', fontWeight: 300 },
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf', fontWeight: 400,
+    },
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf', fontWeight: 500,
+    },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf', fontWeight: 600 },
+  ],
+})
 
 function ResumeGenerator() {
   const [personalInfo, setPersonalInfo] = useState({
@@ -75,7 +91,7 @@ function ResumeGenerator() {
 
   const [education, setEducation] = useState([
     {
-      degree: '',
+      profession: '',
       university: '',
       startDate: '',
       endDate: '',
@@ -132,6 +148,133 @@ function ResumeGenerator() {
   const generateResume = () => {
     console.log(personalInfo, experience, education, skills);
   };
+
+  const resumeDocumentGenerate = () => {
+    const document = (
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.header}>
+            <Text style={styles.name}>{personalInfo.name}</Text>
+            <Text style={styles.contact}>
+              {personalInfo.email} | {personalInfo.phone}
+            </Text>
+            <Text style={styles.contact}>
+              Мессенджер: {personalInfo.messenger} | GitHub: {personalInfo.github}
+            </Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.heading}>Опыт работы</Text>
+            {experience.map((exp, index) => (
+              <View key={index} style={styles.experience}>
+                <Text style={styles.title}>{exp.title}</Text>
+                <Text style={styles.company}>{exp.company}</Text>
+                <Text style={styles.period}>
+                  {exp.startDate} - {exp.endDate}
+                </Text>
+                <Text style={styles.description}>{exp.description}</Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.heading}>Образование</Text>
+            {education.map((edu, index) => (
+              <View key={index} style={styles.education}>
+                <Text style={styles.title}>{edu.profession}</Text>
+                <Text style={styles.company}>{edu.university}</Text>
+                <Text style={styles.period}>
+                  {edu.startDate} - {edu.endDate}
+                </Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.heading}>Навыки</Text>
+            <Text style={styles.skills}>{skills.join(', ')}</Text>
+          </View>
+        </Page>
+      </Document>
+    );
+
+    return document;
+  };
+
+  const styles = StyleSheet.create({
+   page: {
+    fontFamily: 'Roboto',
+    padding: 20,
+    fontSize: 12,
+    lineHeight: 1.5,
+    color: '#333',
+  },
+  header: {
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#007bff',
+  },
+  contact: {
+    marginBottom: 5,
+    fontSize: 14,
+  },
+  section: {
+    marginBottom: 20,
+  },
+  heading: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#007bff',
+  },
+  experience: {
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 4,
+  },
+  education: {
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 4,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  company: {
+    marginBottom: 5,
+  },
+  period: {
+    marginBottom: 5,
+    fontSize: 12,
+    color: '#777',
+  },
+  description: {
+    marginBottom: 10,
+  },
+  skills: {
+    marginBottom: 10,
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  skillItem: {
+    backgroundColor: '#e9e9e9',
+    padding: 8,
+    borderRadius: 20,
+    fontSize: 12,
+    color: '#333',
+  }, 
+  });
+
 
   return (
     <div className="resume-container">
@@ -221,8 +364,15 @@ function ResumeGenerator() {
         <textarea placeholder="Введите навыки через запятую" value={skills.join(', ')} onChange={handleSkillsChange} />
       </div>
 
-      <button className="generate-button generate-button__generate" onClick={generateResume}>Сгенерировать резюме</button>
-    </div >
+      <PDFDownloadLink
+        className="generate-button generate-button__generate"
+        document={resumeDocumentGenerate()}
+        fileName="my-resume.pdf"
+        style={{ textDecoration: 'none', color: 'blue' }}
+      >
+        {({ loading }) => (loading ? 'Загрузка...' : 'Скачать мое резюме PDF')}
+      </PDFDownloadLink>
+    </div>
   );
 }
 
